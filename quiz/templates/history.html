@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block css_style %}
+tr,th,td{
+  border: 1px solid #fff;
+}
+{% endblock  %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+    <div class="container text-white vh-100" style="background-color: #071952;">
+      <h3 class="py-3 text-center">Attempt History</h3>
+        <table class="table text-white p-4">
+            <thead>
+              <tr>
+                <th scope="col">user</th>
+                <th scope="col">Quiz</th>
+                <th scope="col">Correct</th>
+                <th scope="col">Wrong</th>
+                <th scope="col">Total</th>
+                <th scope="col">Parcentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for h in history %}
+              <tr>
+                <td>{{h.user}}</td>
+                <td>{{h.quiz}}</td>
+                <td>{{h.correct}}</td>
+                <td>{{h.wrong}}</td>
+                <td>{{h.total}}</td>
+                <td>{{h.parcentage}}&percnt;</td>
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+    </div>
+{% else %}
+no history
+{% endif %}
+{% endblock %}

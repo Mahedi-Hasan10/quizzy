@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+    <div class="vh-100 d-flex align-items-center justify-content-center text-white" style="background-color: #793FDF;">
+        <h3>Your Progress : </h3>
+        <div class="progress w-50 m-3" style="height: 40px;">
+            <div class="progress-bar  progress-bar-striped" role="progressbar" style="width:{{progress}}%;" aria-valuenow=" {{progress}}" aria-valuemin="0" aria-valuemax=" {{progress}}"> {{progress}}%</div>
+        </div>
+        <br/>
+    </div>
+    {% else %}
+        You haven't take any quiz yet
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="container text-white" style="background-color: #071952;">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10 col-lg-10">
+            <div class="border">
+                <div class=" p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                    <h4>MCQ Quiz</h4><span>questions = {{questions | length}}</span></div>
+                </div>
+                <form  class="form p-3" method="POST">
+                    {% csrf_token %}
+                    {% for q in questions%}
+                    <h3 class="text-danger">{{ forloop.counter }}. {{q.question}}</h3><h4 style="text-align: right;">10 Marks]</h4>
+                          <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="{{q.question}}" id="{{q.option1}}" value="Option1">
+                            <label class="form-check-label" for="option1">
+                              {{q.option1}}
+                            </label>
+                          </div>
+                
+                        
+                          <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="{{q.question}}" id="{{q.option2}}" value="Option2">
+                            <label class="form-check-label" for="option2">
+                              {{q.option2}}
+                            </label>
+                          </div>
+                
+                        
+                          <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="{{q.question}}" id="{{q.option3}}" value="Option3">
+                            <label class="form-check-label" for="option3">
+                              {{q.option3}}
+                            </label>
+                          </div>
+                
+                        
+                          <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="{{q.question}}" id="{{q.option4}}" value="Option4">
+                            <label class="form-check-label" for="option4">
+                              {{q.option4}}
+                            </label>
+                          </div>
+                
+                        {% endfor %}
+
+                        {% comment %} <nav class="mt-4" aria-label="Page navigation sample">
+                          <ul class="pagination">
+                          {% if questions.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{questions.previous_page_number}}">Previous</a></li>
+                          {% else %}
+                            <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                          {% endif %}
+                      
+                          {% for i in questions.paginator.page_range %}
+                            <li class="page-item active"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                          {% endfor %}
+                      
+                          {% if questions.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{questions.next_page_number}}">Next</a></li>
+                          {% else %}
+                            <li class="page-item disabled"><a class="page-link">next</a></li>
+                          {% endif %}
+                        </ul>
+                        </nav> {% endcomment %}
+                        <input style="width: 150px;" class="btn btn-success d-block m-auto" style="border-radius: 0%;"  type="submit" value="Submit Answers">  
+                    </form>
+                  </div>
+        </div>
+        {% else %}
+        <h1>Please <a href="{% url 'login' %}">login</a> to see question</h1>
+    {% endif %}
+    </div> 
+</div>
+    
+{% endblock  %}

@@ -1,0 +1,5 @@
+1.
+in setting.py
+STATIC_ROOT = BASE_DIR / 'static'
+
+2. Git push our project

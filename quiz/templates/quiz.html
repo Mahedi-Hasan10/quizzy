@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <section class="section-content pt-4 text-white" style="background-color: #793FDF;">
+	<div class="container">
+	
+	<div class="row">
+		<aside class="col-md-3">
+			
+	<div class="card text-white" style="background-color: #071952;">
+		<article class="filter-group">
+			<header class="card-header">
+				<a class="text-white text-decoration-none text-center" href="{% url 'categories' %}" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title">Quiz Categories</h6>
+				</a>
+			</header>
+			<div class="filter-content collapse show" id="collapse_1" style="">
+				<div class="card-body ">
+					
+                    {% for category in categories %}
+                    <div class="list-group">    
+                        <a  class="list-group-item list-group-item-action mb-1" href="{% url 'categories' %}">{{category.category_name}}</a>  
+ 
+                      </div>
+                    {% endfor %}
+	
+				</div> <!-- card-body.// -->
+			</div>
+		</article> <!-- filter-group  .// -->
+		
+	</div> <!-- card.// -->
+	
+		</aside> <!-- col.// -->
+		<main class="col-md-9">
+	
+	<header class="border-bottom mb-4 pb-3">
+			<div class="form-inline">
+				<span class="mr-md-auto">{{quizes|length}} quiz found </span>
+				
+			</div>
+	</header><!-- sect-heading -->
+	
+	<div class="row p-2 mt-0">
+		
+		<div class="row row-cols-1 row-cols-md-3 g-4" >
+           {% for quiz in quizes %}
+           <div class="col p-2 text-white w-100" >
+            <div class="card h-auto" style="background-color: #071952;">
+              {% comment %} <img src="..." class="card-img-top" alt="..."> {% endcomment %}
+              <div class="card-body">
+                <h5 class="card-title">{{quiz.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{quiz.category}}</h6>
+                <p class="card-text">{{quiz.description}}</p>
+                  <a class="btn btn-warning" href="{% url 'question' quiz.slug %}">Start Quiz</a>
+                  <a class="btn btn-info" href="{% url 'leaderboard' quiz.id %}">LeaderBoard</a>
+				  <a class="btn btn-info" href="{% url 'review' quiz.id %}">See Review</a>
+
+              </div>
+              <div class="card-footer">
+				<small class="text-muted">Created at <strong>{{quiz.created_date}}</strong></small>               
+              </div>
+              <div class="card-footer">
+				<small class="text-muted">Last updated <strong>{{quiz.modified_date}}</strong></small>
+              </div>
+            </div>
+          </div>
+           {% endfor %}
+          </div>
+       
+					
+	
+	</div> <!-- row end.// -->
+	
+	
+		</main> <!-- col.// -->
+	
+	</div>
+	
+	</div> <!-- container .//  -->
+	</section>
+{% endblock  %}

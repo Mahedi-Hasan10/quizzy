@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+    <form method="post">
+    {% csrf_token %}
+        {{form}} 
+        <button class="btn btn-primary mt-3" type="Submit">Submit</button>
+    </form>
+{% else %}
+no result to show
+{% endif %}
+{% endblock %}
+

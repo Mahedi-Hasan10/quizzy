@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-name padding-y-stringformat ">
+	<div class="container d-flex flex-column vh-100 justify-content-center align-items-center" style="background-color: #071952;">
+    <h1 class="text-center text-white">Welcome to Quizzy</h1>
+    {% if request.user.is_authenticated %}
+    <a class="btn btn-warning w-25" href="{% url 'categories' %}">Start quiz</a>
+    {% else %}
+    <a class="btn btn-warning w-25" href="{% url 'login' %}">Start quiz</a>
+    {% endif %}
+	
+	</div><!-- container // -->
+	</section>
+{% endblock  %}
