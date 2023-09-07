@@ -1,25 +1,22 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse
 from category.models import Category
 from .models import Quiz,QuesModel,user_history ,UserReviewModel
 from .forms import UserReviewForm
 
 # Create your views here.
-def all_quiz(request):
-    # print(category_slug)
-    # category = None
-    # quizes = None
-    # if category_slug:
-    #     category = get_object_or_404(Category, slug = category_slug)
-    #     quizes = Quiz.objects.filter(category=category)
-    # else:
-    #     quizes = Quiz.objects.all()  
-    # for i in quizes:
-    #     print(i)  
-    quizes = Quiz.objects.all()   
+def all_quiz(request,category_slug=None):
+    quizes = None
+    if category_slug is not None:
+        print(category_slug)
+        quizes = Quiz.objects.filter(category__slug=category_slug)
+    else:
+        quizes = Quiz.objects.all()  
+   
+    # # quizes = Quiz.objects.all()   
     categories = Category.objects.all()
     # for i in categories:
-    #     print(i)
+    #     print(i.slug)
     return render(request,'quiz.html',{'categories':categories,'quizes':quizes})
 
     
@@ -73,16 +70,21 @@ def user_total_history(request):
 
 
 def progress(request):
-    history = user_history.objects.filter(user=request.user)
-    total = 0
-    for i in history:
-        total+=i.parcentage
-    total_progress = total / len(history)
-    
-    context ={
-        'progress':total_progress,
-        'history':history,
-    }
+    if request.user.is_authenticated:
+        history = user_history.objects.filter(user=request.user).exists()
+        print(history)
+        total = 0
+        total_progress = 0
+        if history:
+            history = user_history.objects.filter(user=request.user)
+            for i in history:
+                total+=i.parcentage
+            total_progress = total / len(history)
+        
+        context ={
+            'progress':total_progress,
+            'history':history,
+        }
     return render(request,"progress.html",context)
 
 
@@ -96,7 +98,6 @@ def leaderboard(request,quiz_id):
 # Review Part ================
 def review(request,quiz_id):
     review = UserReviewModel.objects.filter(quiz=quiz_id)
-    print(quiz_id)
     total = len(review)
     count = 0
     for i in review:
@@ -109,26 +110,15 @@ def add_review(request):
     intaial_data = {
         'user': request.user,
     }
-    form = UserReviewForm(initial=intaial_data)
-    user_review = UserReviewModel.objects.all()
-
-    
-    quiz = request.POST.get('quiz')
-    # new_quiz = Quiz.objects.get(id = quiz)
-    rating = request.POST.get('rating')
-    details = request.POST.get('details')
-    
-    # user_review.create(
-    #     user = request.user,
-    #     quiz = quiz,
-    #     rating = rating,
-    #     details= details,
-    # )
-    # user_review.save()
-    print(request.user)
-    print(quiz)
-    print(rating)
-    print(details)
-    # review_create.save()
+    if request.method =="POST":
+        form = UserReviewForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.user = request.user
+            form.save()
+            return redirect('profile') 
+    else:
+        form = UserReviewForm()
+        
     return render(request,'add_review.html',{'form':form})
     

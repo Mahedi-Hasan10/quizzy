@@ -20,7 +20,7 @@
 					
                     {% for category in categories %}
                     <div class="list-group">    
-                        <a  class="list-group-item list-group-item-action mb-1" href="{% url 'categories' %}">{{category.category_name}}</a>  
+                        <a  class="list-group-item list-group-item-action mb-1" href="{% url 'products_by_categories' category_slug=category.slug %}">{{category.category_name}}</a>  
  
                       </div>
                     {% endfor %}

@@ -1,0 +1,5 @@
+01998311602
+01998311602 % 14 = 0
+Quizzy
+https://github.com/Mahedi-Hasan10/quizzy
+http://djangomahedi.pythonanywhere.com/

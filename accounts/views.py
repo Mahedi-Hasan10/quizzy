@@ -8,12 +8,17 @@ def signin(request):
     if request.method=="POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username = username,password=password)
-        if user.is_authenticated:
+        user = authenticate(username = username, password=password)
+        print(user)
+        if user is None:
+            messages.warning( request,'username and password did not match')
+            messages.warning( request,'Check your usernamae and password ')
+            messages.warning( request,'and try again!!!')
+            return redirect('login')           
+        else:
             login(request,user)
             return redirect('home')
-        else:
-            return redirect('login')
+    
     return render(request,'signin.html')
 def register(request):
     form = RegistrationForm()

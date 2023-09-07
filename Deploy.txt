@@ -3,3 +3,126 @@ in setting.py
 STATIC_ROOT = BASE_DIR / 'static'
 
 2. Git push our project
+
+3. Create account in PythonAnyWhere
+
+4.Click dashboard -> Bash
+
+5. Bash -> git clone gitrepository link (write 'ls' to check files)
+====================================================================================
+
+Now create Virtual Environment in Bash
+6. mkvirtualenv -p python3.10 project_name_env
+
+7. pip install django
+
+8. go PythonAnyWhere using another tab and go to "web"
+
+9. now Click Add a new web app 
+next->
+
+10.Select a python web framework
+-> manual configuration
+next->
+
+11. Select python version 
+-> python 3.10
+next ->
+======================================================================
+==========Now we are in a new page============
+1. setup Virtualenv Path :
+--->click input write "project_name_env" click check button
+======================================================================
+2. Now go to Code Section:
+before any work we need to check our home directory
+go to bash and write "pwd" and hit enter
+
+----select the home directory and go to the Code Section
+and click Source Code input then paste the copied directory and click 
+checked button
+----Click WSGI configuration file
+inside configuration file keep only DJango and
+remove everything and "uncomment"
+======================================================================
+3. go to Bash-->>======
+ls
+cd project name
+pwd
+copy directory
+===Paste the directory inside WSGI configuration file
+path ="copied directory"
+
+set os.envireon[*****] = 'project_name.settings'-----
+
+save click
+
+====================================================================
+-------Now go to files--------
+--click project folder
+--go to setting.py
+--inside settings.py and set
+-- DEBUG = False
+--ALLOWED_HOSTS=['*']
+and save
+
+============================================================
+go to dashboard
+again web
+click reload button
+Now click configuration for djangoname.pythonanywhere.com
+=============Yeee Now successfully we deploy our project==========================================
+======================================================================
+
+1. For showing static file 
+go to bash and write
+-> python manage.py collectstatic and press enter 
+now copy the directory---
+
+now set static file
+inside url : /static/
+directory : paste the directory
+
+==================================================================================================
+If we want to update aything then after change from VSCODe
+
+git add .
+git commit -m "extra text added"
+git push
+
+No go to bash
+git pull
+
+==================================================================f
+if our direction bash virtual env deactivate
+then 
+-> workon projectName_env
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

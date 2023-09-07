@@ -3,6 +3,13 @@
 <section class="section-conten padding-y pt-5" style="min-height:84vh; background-color: #793FDF;">
 
 	<!-- ============================ COMPONENT LOGIN   ================================= -->
+	{% if messages %}
+	{% for m in messages %}
+		<div class="alert alert-warning w-50 d-block m-auto mb-3" role="alert">
+			{{m}}
+		</div>
+	{% endfor %}
+	{% endif %}
 		<div class="card mx-auto " style="max-width: 380px;">
 		  <div class="card-body">
 		  <h4 class="card-title mb-4">Sign in</h4>
