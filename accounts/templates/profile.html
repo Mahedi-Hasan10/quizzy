@@ -18,7 +18,7 @@
     <h3 class="py-3 text-center text-white">Your Profile</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="form-row">
+        {% comment %} <div class="form-row">
             <div class="col-md-5">
                 <div class="form-group">
                     <label class="small mb-1 text-white">Username:</label>
@@ -31,7 +31,8 @@
                         {{ profile_form.email }}
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
+        {{profile_form}}
         <br><br>
         <button type="submit" class="btn btn-dark mb-3">Save Changes</button>
     </form>

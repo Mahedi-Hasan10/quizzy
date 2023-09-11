@@ -107,9 +107,6 @@ def review(request,quiz_id):
     return render(request,'review.html',{'reviews':review,'count':average})
 
 def add_review(request):
-    intaial_data = {
-        'user': request.user,
-    }
     if request.method =="POST":
         form = UserReviewForm(request.POST)
         if form.is_valid():

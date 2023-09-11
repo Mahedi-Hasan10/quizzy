@@ -35,12 +35,23 @@ def user_logout(request):
     return redirect('login')
 
 def profile(request):
-    if request.method == 'POST':
-        profile_form = UpdateProfileForm(request.POST, instance=request.user)
-        if profile_form.is_valid():
-            profile_form.save()
+    if request.method =="POST":
+        form = UpdateProfileForm(request.POST,instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.user = request.user
+            form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users-profile')
+            return redirect('profile') 
     else:
-        profile_form = UpdateProfileForm(instance=request.user)
-    return render(request, 'profile.html', {'profile_form': profile_form,})
+        form = UpdateProfileForm(instance=request.user)
+        
+    # if request.method == 'POST':
+    #     profile_form = UpdateProfileForm(request.POST, instance=request.user)
+    #     if profile_form.is_valid():
+    #         profile_form.save()
+    #         messages.success(request, 'Your profile is updated successfully')
+    #         return redirect(to='users-profile')
+    # else:
+    #     profile_form = UpdateProfileForm(instance=request.user)
+    return render(request, 'profile.html', {'profile_form': form,})
